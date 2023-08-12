@@ -15,6 +15,5 @@ export default function HeaderComponents({randomIndex, site}) {
     ];
     return (
         components[randomIndex]
-        
     );
 }

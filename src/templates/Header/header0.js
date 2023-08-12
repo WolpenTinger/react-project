@@ -1,10 +1,13 @@
 import React from 'react';
 
 const Header0 = ({site}) => {
+    let headerColor = "background-color: " + site.headerColor
+    let fixed = "navbar navbar-expand-md border-bottom"
+    if(site.headerFixed) {
+        fixed += " sticky-top"
+    } 
     return (
-      <>
-      {console.log(site.name)}
-        <nav className="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+      <nav className={fixed} data-bs-theme="dark" style={{backgroundColor : site.headerColor}}>
             <div className="container">
                 <a className="navbar-brand d-md-none" href="#">
                     
@@ -37,7 +40,6 @@ const Header0 = ({site}) => {
                 </div>
             </div>
             </nav>
-        </>
     );
 };
 

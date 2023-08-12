@@ -28,11 +28,9 @@ export default function Generate({site} ) {
     console.log('header ' + randomNumHeader)
     console.log('body ' + randomNumBody)
     console.log('footer ' + randomNumFooter)
-    console.log(site.name)
-    console.log(site.descr)
 
     return (
-        <React.Fragment >
+        <React.Fragment>
             <HeaderComponents randomIndex={randomNumHeader} site={site}/> 
             <BodyComponents randomIndex={randomNumBody} site={site} /> /
             <FooterComponents randomIndex={randomNumFooter} />
