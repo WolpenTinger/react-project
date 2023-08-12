@@ -8,8 +8,7 @@ export default function App() {
         name: 0,
         descr: 0
     }
-    ///// пиздец
-
+    ///// asdlknawlkdawkdna
     const [siteName, setSiteName] = useState('');
     const [siteDescr, setSiteDescr] = useState('');
     const [siteLogo, setSiteLogo] = useState('');
