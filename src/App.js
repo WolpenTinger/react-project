@@ -35,6 +35,7 @@ export default function App() {
                         <h3>Description</h3>
                         <input className='w-50' type="text" value={site.descr} onChange={event => edit('descr', event)} />
                     </label>
+                    {console.log(site.name)}
                     {/* <label className='mt-2'>
                         <h3>Header logo</h3>
                         <input className='' type="file" value={siteLogo} onChange={handleInputChange3} />
