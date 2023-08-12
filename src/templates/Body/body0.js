@@ -1,9 +1,8 @@
 import React from 'react';
 
-const Body0 = ({ siteDescr }) => {
+const Body0 = ({ site }) => {
     return (
         <main className="mt-5">
-            {console.log(siteDescr)}
             <div className="row row-cols-1 row-cols-md-3 mb-3 text-center">
                 
                 <div className="col">
@@ -59,7 +58,7 @@ const Body0 = ({ siteDescr }) => {
                 </div>
             </div>
 
-            <h2 className="display-6 text-center mb-4">{siteDescr}</h2>
+            <h2 className="display-6 text-center mb-4">{site.descr}</h2>
 
             <div className="table-responsive">
                 <table className="table text-center">
