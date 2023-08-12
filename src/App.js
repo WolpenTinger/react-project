@@ -8,6 +8,7 @@ export default function App() {
         name: 0,
         descr: 0
     }
+    ///// пиздец
 
     const [siteName, setSiteName] = useState('');
     const [siteDescr, setSiteDescr] = useState('');
