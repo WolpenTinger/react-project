@@ -3,7 +3,17 @@ import './App.css';
 import React, { useState, useEffect } from "react";
 import Generate from './templates/Windows/Generate';
 
+function MenuModel(id, title) {
+    return {
+      id,
+      title,
+      status: 0 // 0 - pending, 1 - done
+    }
+} 
+
 export default function App() {
+
+    
 
    const [site, setSite] = useState({
       name : '',
@@ -15,6 +25,7 @@ export default function App() {
     //   logo : new FileReader(),
    }); 
 
+
    function edit(prop, event) {
       const copy = Object.assign({}, site);
       if (prop === 'headerFixed') {
@@ -22,15 +33,34 @@ export default function App() {
       } else {
         copy[prop] = event.target.value;
       }
-    //   copy[prop] = event.target.value;
+      
       setSite(copy);
    }
 
-   function addInput() {
-    return(
-        <input type="text" value={site.menu} onChange={event => edit('menu', event)} /> //добавленрие нового инпута при клике
-    )
-   }
+
+    const [menu, setMenu] = useState([])
+    const [input, setInput] = useState('')
+
+    // const handleInputChange = e => setInput(e.target.value)
+
+    const menuReducer = {
+        remove: id => setMenu(menu.filter(t => t.id !== id)),
+        add: (title) => setMenu([...menu, new MenuModel(menu.length, title)]),
+
+    }
+
+
+    const handleClickMenuBtn = e => {
+        if(input !== '') {
+        menuReducer.add(input)
+        setInput('')
+        console.log(site)
+        }
+    }
+
+
+
+
     const [showComponent, setShowComponent] = useState(true);
 
     const handleGenerateClick = () => {
@@ -47,9 +77,32 @@ export default function App() {
                     </label>
                     <label >
                         <h3>Menu pages</h3>
-                        <div className='mt-2 d-flex' style={{columnGap : '50px'}}>
-                            <input type="text" value={site.menu} onChange={event => edit('menu', event)} />
-                            <button className='btn btn-primary' onClick={addInput()}>Добавить</button>
+                        <div className='mt-2 w-50 d-flex flex-column ' style={{columnGap : '50px'}}>
+                        <input placeholder="Some menu"
+                            className="menu__input"
+                            value={input}
+                            onChange={event => edit('menu', event)}/>
+                            <button className='btn btn-primary mt-2 w-25'onClick={handleClickMenuBtn} >Добавить</button>
+
+                            {
+                            menu.map(t =>
+                                <li key={t.id}
+                                    className="menu__list__item">
+                                <h6>{t.title}</h6>
+                                <div>
+                                    {/* {t.status === 0 ?
+                                    <span onClick={() => menuReducer.setStatus(t.id, 1)}
+                                            aria-label="mark icon"
+                                            role="img">✅</span> */}
+                                    {
+                                        <span onClick={() => menuReducer.remove(t.id)}
+                                            aria-label="delete icon"
+                                            role="img">❌</span>
+                                    }
+
+                                </div>
+                                </li>) 
+                            }
                         </div>
                     </label>
                     <label className='mt-2'>
