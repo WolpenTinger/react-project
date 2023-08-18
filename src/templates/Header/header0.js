@@ -1,15 +1,17 @@
 import React from 'react';
 
-const Header0 = ({siteName}) => {
+const Header0 = ({site}) => {
+    let headerColor = "background-color: " + site.headerColor
+    let fixed = "navbar navbar-expand-md border-bottom"
+    if(site.headerFixed) {
+        fixed += " sticky-top"
+    } 
     return (
-      <>
-      {console.log(siteName)}
-        <nav className="navbar navbar-expand-md bg-dark sticky-top border-bottom" data-bs-theme="dark">
+      <nav className={fixed} data-bs-theme="dark" style={{backgroundColor : site.headerColor}}>
             <div className="container">
                 <a className="navbar-brand d-md-none" href="#">
                     
                 </a>
-                <h1>{siteName}</h1> 
                 <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="#offcanvas" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -22,8 +24,8 @@ const Header0 = ({siteName}) => {
                         <ul className="navbar-nav flex-grow-1 justify-content-between">
                             <li className="nav-item"><a className="nav-link" href="#">
                                 <svg className="bi" width="24" height="24"></svg>
-                            </a></li>
-                            <h1>{siteName}</h1> 
+                            </a></li> 
+                            <li className="nav-item">{site.name}</li> 
                             <li className="nav-item"><a className="nav-link" href="#">Tour</a></li>
                             <li className="nav-item"><a className="nav-link" href="#">Product</a></li>
                             <li className="nav-item"><a className="nav-link" href="#">Features</a></li>
@@ -38,7 +40,6 @@ const Header0 = ({siteName}) => {
                 </div>
             </div>
             </nav>
-        </>
     );
 };
 

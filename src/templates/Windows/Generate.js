@@ -20,7 +20,7 @@ const GenerateNum = (min, max) => {
 };
 
 
-export default function Generate({ siteName, siteDescr } ) {
+export default function Generate({site} ) {
     const randomNumHeader = GenerateNum(0, 0)
     const randomNumBody = GenerateNum(0, 0)
     const randomNumFooter = GenerateNum(0, 4)
@@ -30,9 +30,9 @@ export default function Generate({ siteName, siteDescr } ) {
     console.log('footer ' + randomNumFooter)
 
     return (
-        <React.Fragment >
-            <HeaderComponents siteName={siteName} randomIndex={randomNumHeader} /> 
-            <BodyComponents randomIndex={randomNumBody} siteDescr={siteDescr} /> /
+        <React.Fragment>
+            <HeaderComponents randomIndex={randomNumHeader} site={site}/> 
+            <BodyComponents randomIndex={randomNumBody} site={site} /> /
             <FooterComponents randomIndex={randomNumFooter} />
         </React.Fragment>
     )

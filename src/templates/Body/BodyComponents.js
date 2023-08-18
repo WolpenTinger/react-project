@@ -4,9 +4,9 @@ import Body2 from './body2';
 import Body3 from './body3';
 import Body4 from './body4';
 
-export default function BodyComponents({ randomIndex, siteDescr }) {
+export default function BodyComponents({ randomIndex, site }) {
     const components = [
-        <Body0 siteDescr={siteDescr } />,
+        <Body0 site={site} />,
         <Body1 />,
         <Body2 />,
         <Body3 />,
