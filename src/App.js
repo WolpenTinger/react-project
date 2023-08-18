@@ -17,7 +17,9 @@ export default function App() {
 
    const [site, setSite] = useState({
       name : '',
-      menu : [],
+      menu : [
+        
+      ],
       descr : '',
       headerFixed : '',
       headerColor : ''
@@ -27,11 +29,20 @@ export default function App() {
 
 
    function edit(prop, event) {
-      const copy = Object.assign({}, site);
+    //   const copy = Object.assign({}, site);
+
+      const copy = { ...site };
+        
+
       if (prop === 'headerFixed') {
         copy[prop] = event.target.checked;
       } else {
         copy[prop] = event.target.value;
+      }
+      if(prop === 'menu') {
+        copy.menu = [...copy.menu, input];
+        console.log(copy)
+
       }
       
       setSite(copy);
@@ -41,7 +52,10 @@ export default function App() {
     const [menu, setMenu] = useState([])
     const [input, setInput] = useState('')
 
-    // const handleInputChange = e => setInput(e.target.value)
+    const handleInputChange = (e) => {
+        setInput(e.target.value)
+    }
+
 
     const menuReducer = {
         remove: id => setMenu(menu.filter(t => t.id !== id)),
@@ -52,9 +66,10 @@ export default function App() {
 
     const handleClickMenuBtn = e => {
         if(input !== '') {
+        
+        edit('menu', e)
         menuReducer.add(input)
         setInput('')
-        console.log(site)
         }
     }
 
@@ -81,7 +96,8 @@ export default function App() {
                         <input placeholder="Some menu"
                             className="menu__input"
                             value={input}
-                            onChange={event => edit('menu', event)}/>
+                            onChange={handleInputChange}
+                            />
                             <button className='btn btn-primary mt-2 w-25'onClick={handleClickMenuBtn} >Добавить</button>
 
                             {
