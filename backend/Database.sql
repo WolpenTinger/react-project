@@ -6,7 +6,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `authentification`
 --
-
+CREATE DATABASE authentification;
+CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON authentification.* TO 'root'@'%' WITH GRANT OPTION;
 -- --------------------------------------------------------
 
 --
