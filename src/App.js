@@ -1,43 +1,73 @@
-import './App.css';
+/*import './App.css';*/
 
 import React, { useState, useEffect } from "react";
 import Generate from './templates/Windows/Generate';
 
 export default function App() {
-    let site = {
-        name: 0,
-        descr: 0
-    }
 
-    const [siteName, setSiteName] = useState('');
-    const [siteDescr, setSiteDescr] = useState('');
-    const [siteLogo, setSiteLogo] = useState('');
-    const [siteFixedHeader, setSiteFixedHeader] = useState('');
+   const [site, setSite] = useState({
+      name : '',
+      descr : '',
+      headerFixed : '',
+      headerColor : '',
+      menu: [],
+      logo : new FileReader(),
+   }); 
+
+   function edit(prop, event) {
+    //   const copy = Object.assign({}, site);
+      const copy = { ...site };
+        
+      if (prop === 'headerFixed') {
+        copy[prop] = event.target.checked;
+      } else {
+        copy[prop] = event.target.value;
+      }
+      setSite(copy);
+   }
+
     const [showComponent, setShowComponent] = useState(true);
-
-    const handleInputChange1 = (event) => {
-        setSiteName(event.target.value);
-    };
-
-    const handleInputChange2 = (event) => {
-        setSiteDescr(event.target.value);
-    };
-
-    const handleInputChange3 = (event) => {
-        setSiteLogo(event.target.value);
-    };
-
-    const handleInputChange4 = (event) => {
-        setSiteFixedHeader(event.target.value);
-    };
 
     const handleGenerateClick = () => {
         setShowComponent(false);
-      
-        console.log(siteName)
-        console.log(showComponent)
     };
 
+
+    ///////////////////////////////////////////////////////
+    const [tabs, setTabs] = useState([]);
+    const [inputValue, setInputValue] = useState('');
+    const [isEditable, setIsEditable] = useState(true);
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleAddTab = () => {
+        if (tabs.length < 7) {
+            setTabs([...tabs, inputValue.trim()]);
+            setInputValue('');
+        }
+    };
+
+    const handleSaveTabs = () => {
+        setIsEditable(false);
+        site.menu = tabs.map((tab) => ({ name: tab }));
+        console.log(site.menu); // Выводим новый массив объектов в консоль
+    }; 
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const copy = { ...site };
+            copy.logo = e.target.result;
+            setSite(copy);
+        };
+
+        reader.readAsDataURL(file);
+    };
+    //////////////////////////////////////////////////////////
 
     return (
         <div className='container'>
@@ -45,19 +75,45 @@ export default function App() {
                 <div className='d-flex flex-column'>
                     <label className='mt-2'>
                         <h3>Site Name:</h3>
-                        <input type="text" value={siteName} onChange={handleInputChange1} />
+                        <input type="text" value={site.name} onChange={event => edit('name', event)} />
                     </label>
                     <label className='mt-2'>
                         <h3>Description</h3>
-                        <input className='w-50' type="text" value={siteDescr} onChange={handleInputChange2} />
+                        <input className='w-50' type="text" value={site.descr} onChange={event => edit('descr', event)} />
                     </label>
+
+
                     <label className='mt-2'>
-                        <h3>Header logo</h3>
-                        <input className='' type="file" value={siteLogo} onChange={handleInputChange3} />
+                        <h3>Menu</h3>
+                        <input type="text" value={inputValue} onChange={handleInputChange} disabled={!isEditable} />
+                        <button onClick={handleAddTab} disabled={!isEditable}>Add</button>
+                        <button onClick={handleSaveTabs} disabled={!isEditable}>Save</button>
+                        <ul>
+                            {tabs.map((tab, index) => (
+                                <li key={index}>{tab}</li>
+                                
+                            ))}
+                        </ul> 
                     </label>
+
+
+                    {/* <label className='mt-2'>
+                        <h3>Header logo</h3>
+                        <input className=''  name="logo" type="file" onChange={event => edit('logo', event)} />
+                    </label> */}
+
+                    <label className='mt-2'>
+                        <h3>Logo</h3>
+                        <input type="file" onChange={handleFileChange} />
+                    </label>
+
                     <label className='mt-2'>
                         <h3>Header fixed</h3>
-                        <input className='' type="checkbox" value={siteFixedHeader} onChange={handleInputChange4} />
+                        <input className='' type="checkbox" checked={site.headerFixed} onChange={event => edit('headerFixed', event)} />
+                    </label>
+                    <label className='mt-2'>
+                        <h3>header color</h3>
+                        <input className='w-50' type="text" value={site.headerColor} onChange={event => edit('headerColor', event)} />
                     </label>
                 </div>
                 
@@ -67,7 +123,7 @@ export default function App() {
                 <button className="btn btn-primary mt-3" onClick={handleGenerateClick}>Generate</button>
             )}
 
-            {!showComponent && <Generate siteName={siteName} siteDescr={siteDescr} />}
+            {!showComponent && <Generate site={site} />}
         </div>
     );
 }

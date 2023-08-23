@@ -4,16 +4,15 @@ import Header2 from './header2';
 import Header3 from './header3';
 import Header4 from './header4';
 
-export default function HeaderComponents({randomIndex, siteName}) {
-    console.log(siteName)
+export default function HeaderComponents({randomIndex, site}) { 
+    
     const components = [
-        <Header0 siteName={siteName} />,
-        <Header1 siteName={siteName} />,
-        <Header2 siteName={siteName} />,
-        <Header3 siteName={siteName} />,
-        <Header4 siteName={siteName} />,
+        <Header0 site={site} />,
+        <Header1 site={site} />,
+        <Header2 site={site} />,
+        <Header3 site={site} />,
+        <Header4 site={site} />,
     ];
-
     return (
         components[randomIndex]
     );
