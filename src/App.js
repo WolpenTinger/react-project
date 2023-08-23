@@ -1,4 +1,4 @@
-import './App.css';
+/*import './App.css';*/
 
 import React, { useState, useEffect } from "react";
 import Generate from './templates/Windows/Generate';
@@ -11,7 +11,7 @@ export default function App() {
       headerFixed : '',
       headerColor : '',
       menu: [],
-    //   logo : new FileReader(),
+      logo : new FileReader(),
    }); 
 
    function edit(prop, event) {
@@ -54,6 +54,19 @@ export default function App() {
         site.menu = tabs.map((tab) => ({ name: tab }));
         console.log(site.menu); // Выводим новый массив объектов в консоль
     }; 
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const copy = { ...site };
+            copy.logo = e.target.result;
+            setSite(copy);
+        };
+
+        reader.readAsDataURL(file);
+    };
     //////////////////////////////////////////////////////////
 
     return (
@@ -88,6 +101,12 @@ export default function App() {
                         <h3>Header logo</h3>
                         <input className=''  name="logo" type="file" onChange={event => edit('logo', event)} />
                     </label> */}
+
+                    <label className='mt-2'>
+                        <h3>Logo</h3>
+                        <input type="file" onChange={handleFileChange} />
+                    </label>
+
                     <label className='mt-2'>
                         <h3>Header fixed</h3>
                         <input className='' type="checkbox" checked={site.headerFixed} onChange={event => edit('headerFixed', event)} />

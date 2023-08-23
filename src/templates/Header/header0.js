@@ -31,6 +31,9 @@ const Header0 = ({site}) => {
 
                             
                         <ul className="navbar-nav flex-grow-1 justify-content-between">
+                            <div>
+                                <img src={site.logo} alt="Logo" style={{ width: '100px', height: '100px' }} /> 
+                            </div>
                             <li className="nav-item"><h3>{site.name}</h3></li> 
 
                                 {site.menu.map((item, index) => (
